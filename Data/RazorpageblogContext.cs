@@ -3,7 +3,6 @@ using SkillTreeRazorPageBlogSample.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SkillTreeRazorPageBlogSample.Models;
 
 namespace SkillTreeRazorPageBlogSample.Data
 {
