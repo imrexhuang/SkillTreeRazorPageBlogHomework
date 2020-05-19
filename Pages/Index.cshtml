@@ -19,7 +19,9 @@
             <h2 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h2>
             @*<p class="card-text">@Html.DisplayFor(modelItem => item.Body)</p>*@
             <p class="card-text">@Html.Raw(item.Body)</p>
+
             <tags-helper>@item.Tags</tags-helper>
+
         </div>
         <div class="card-footer text-muted">
             @Html.DisplayFor(modelItem => item.CreateDate)
