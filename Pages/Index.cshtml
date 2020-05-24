@@ -30,6 +30,10 @@
             @Html.DisplayFor(modelItem => item.CreateDate)
             <a href="#">Start Bootstrap</a>
         </div>
+        <div class="card-footer text-muted">
+            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+        </div>
     </div>
 }
 
