@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SkillTreeRazorPageBlogSample.Data;
+using Westwind.AspNetCore.Markdown;
 
 namespace SkillTreeRazorPageBlogSample
 {
@@ -36,6 +37,15 @@ namespace SkillTreeRazorPageBlogSample
 
             //要註冊(TagsHelper使用到的)
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+
+            //https://www.codemag.com/Article/1811071/Marking-up-the-Web-with-ASP.NET-Core-and-Markdown
+            services.AddMarkdown(config =>
+            {
+                config.AddMarkdownProcessingFolder(
+                    "/posts/",
+                    "~/Pages/_MarkdownPageTemplate.cshtml");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +73,9 @@ namespace SkillTreeRazorPageBlogSample
             {
                 endpoints.MapRazorPages();
             });
+
+            //https://www.codemag.com/Article/1811071/Marking-up-the-Web-with-ASP.NET-Core-and-Markdown
+            app.UseMarkdown();
         }
     }
 }

@@ -2,6 +2,8 @@
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Mvc.Core.Common
+@using Westwind.AspNetCore.Markdown
+
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -21,7 +23,7 @@
         <div class="card-body">
             <h2 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h2>
             @*<p class="card-text">@Html.DisplayFor(modelItem => item.Body)</p>*@
-            <p class="card-text">@Html.Raw(item.Body)</p>
+            <p class="card-text">@Html.Raw(Markdown.Parse(item.Body, false, false, false))</p>
 
             <tags-helper>@item.Tags</tags-helper>
 
