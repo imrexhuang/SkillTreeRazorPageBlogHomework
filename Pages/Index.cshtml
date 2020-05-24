@@ -1,4 +1,7 @@
 ﻿@page
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -32,11 +35,13 @@
 
 
 <!-- Pagination -->
-<ul class="pagination justify-content-center mb-4">
-    <li class="page-item">
-        <a class="page-link" href="#">&larr; Older</a>
-    </li>
-    <li class="page-item disabled">
-        <a class="page-link" href="#">Newer &rarr;</a>
-    </li>
-</ul>
+@Html.PagedListPager((IPagedList)Model.Article,
+    page => Url.Page("index", new { p = page }),
+    new PagedListRenderOptions
+    {
+        LinkToFirstPageFormat = "第一頁",
+        LinkToPreviousPageFormat = "上一頁",
+        LinkToNextPageFormat = "下一頁",
+        LinkToLastPageFormat = "最後頁"
+    })
+<!-- Pagination -->

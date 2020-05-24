@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SkillTreeRazorPageBlogSample.Models;
 using SkillTreeRazorPageBlogSample.Data;
+using X.PagedList;
 
 namespace SkillTreeRazorPageBlogSample.Pages
 {
@@ -23,8 +24,10 @@ namespace SkillTreeRazorPageBlogSample.Pages
 
         public IEnumerable<IndexViewClass> Article { get; set; }
 
-        public void OnGet()
+        public void OnGet(int? p)
         {
+            int pageIndex = p.HasValue ? p.Value < 1 ? 1 : p.Value : 1;
+            int articlePerPage = 5; //一頁顯示幾筆文章
             Article = _context.Articles
                 .Select(
                     d => new IndexViewClass
@@ -36,7 +39,7 @@ namespace SkillTreeRazorPageBlogSample.Pages
                         CreateDate = d.CreateDate,
                         Tags = d.Tags
                     })
-                    .ToList();
+                  .ToPagedList(pageIndex, articlePerPage);
         }
 
     }
