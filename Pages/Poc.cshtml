@@ -1,0 +1,15 @@
+﻿@page
+@using SkillTreeRazorPageBlogSample.Helper @*也可以直接在 _ViewInports.cshtml 內宣告*@
+@model SkillTreeRazorPageBlogSample.Pages.PocModel
+
+@{
+    ViewData["Title"] = "Poc";
+}
+
+<h1>Poc驗證</h1>
+
+語法測試區:
+<br />
+@Html.DisplayItemsStatus("00")
+<br />
+@Html.DisplayItemsStatus("01")

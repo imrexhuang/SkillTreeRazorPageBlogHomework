@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Html; //.net MVC的MvcHtmlString要改成Microsoft.AspNetCore.Html.HtmlString 
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace SkillTreeRazorPageBlogSample.Helper
 {
     public static class DisplayItemsHelper
     {
-        public static HtmlString DisplayItemsStatus(this HtmlHelper htmlHelper, string status)
+        public static IHtmlContent DisplayItemsStatus(this IHtmlHelper htmlHelper, string status)
         {
             var rtnString = "";
             if (status == "00")
