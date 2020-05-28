@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SkillTreeRazorPageBlogSample.Data;
+using SkillTreeRazorPageBlogSample.Extensions;
 using Westwind.AspNetCore.Markdown;
 
 namespace SkillTreeRazorPageBlogSample
@@ -37,6 +39,11 @@ namespace SkillTreeRazorPageBlogSample
 
             //要註冊(TagsHelper使用到的)
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            //https://www.cnblogs.com/linezero/p/6801602.html
+            //https://docs.microsoft.com/zh-tw/aspnet/core/migration/claimsprincipal-current?view=aspnetcore-3.1
+            //https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/http-context?view=aspnetcore-3.1
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
             //https://www.codemag.com/Article/1811071/Marking-up-the-Web-with-ASP.NET-Core-and-Markdown
@@ -76,6 +83,10 @@ namespace SkillTreeRazorPageBlogSample
 
             //https://www.codemag.com/Article/1811071/Marking-up-the-Web-with-ASP.NET-Core-and-Markdown
             app.UseMarkdown();
+
+            //https://www.cnblogs.com/linezero/p/6801602.html
+            app.UseStaticHttpContext();
+
         }
     }
 }
