@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +25,8 @@ namespace SkillTreeRazorPageBlogSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddRazorPages();
 
             services.AddDbContext<RazorpageblogContext>(
@@ -36,6 +34,21 @@ namespace SkillTreeRazorPageBlogSample
                     options.UseSqlServer(
                         Configuration
                             .GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<RazorpageblogIdentityDbContext>(
+                options =>
+                    options.UseSqlServer(
+                        Configuration
+                            .GetConnectionString("DefaultConnection")));
+
+            //https://stackoverflow.com/questions/40785813/asp-net-iservicecollection-addidentity-not-found
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 6;
+                })
+                .AddEntityFrameworkStores<RazorpageblogIdentityDbContext>()
+                .AddDefaultTokenProviders();
 
             //要註冊(TagsHelper使用到的)
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -74,6 +87,7 @@ namespace SkillTreeRazorPageBlogSample
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
