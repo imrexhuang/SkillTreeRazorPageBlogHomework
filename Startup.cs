@@ -42,13 +42,18 @@ namespace SkillTreeRazorPageBlogSample
                             .GetConnectionString("DefaultConnection")));
 
             //https://stackoverflow.com/questions/40785813/asp-net-iservicecollection-addidentity-not-found
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = 6;
-                })
-                .AddEntityFrameworkStores<RazorpageblogIdentityDbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            //    {
+            //        options.Password.RequireDigit = false;
+            //        options.Password.RequiredLength = 6;
+            //    })
+            //    .AddEntityFrameworkStores<RazorpageblogIdentityDbContext>()
+            //    .AddDefaultTokenProviders();
+
+            //https://docs.microsoft.com/zh-tw/aspnet/core/security/authorization/secure-data?view=aspnetcore-3.1
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<RazorpageblogIdentityDbContext>();
 
             //要註冊(TagsHelper使用到的)
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
