@@ -87,6 +87,7 @@ namespace SkillTreeRazorPageBlogSample
 
             app.UseRouting();
 
+            //https://docs.microsoft.com/zh-tw/aspnet/core/security/authentication/identity?view=aspnetcore-3.1&tabs=visual-studio
             app.UseAuthentication();
             app.UseAuthorization();
 
