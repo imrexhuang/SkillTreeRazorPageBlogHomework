@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SkillTreeRazorPageBlogSample.Helper
@@ -15,6 +16,99 @@ namespace SkillTreeRazorPageBlogSample.Helper
     /// </summary>
     public static class AuthLinkHelper
     {
+        /// <summary>
+        /// 不區分Role，有登入就可以看到超連結
+        /// </summary>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <param name="linkText">連結文字</param>
+        /// <param name="asppage">連結頁面</param>
+        /// <returns>MvcHtmlString.</returns>
+        public static IHtmlContent ActionLinkAuthorizedLink(this IHtmlHelper htmlHelper, string linkText, string asppage)
+        {
+            var userId = SkillTreeRazorPageBlogSample.Extensions.HttpContext.Current.User.Identity.Name;
+
+            if (string.IsNullOrWhiteSpace(userId) == false)
+            {
+                var link = new TagBuilder("a");
+                link.MergeAttribute("href", asppage);
+                link.InnerHtml.AppendHtml(linkText);
+                return link;
+
+            }
+
+            return HtmlString.Empty;
+        }
+
+        /// <summary>
+        /// 不區分Role，有登入就可以看到超連結
+        /// </summary>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <param name="linkText">連結文字</param>
+        /// <param name="asppage">連結頁面</param>
+        /// <param name="cssclass">CSS Class</param>
+        /// <returns>MvcHtmlString.</returns>
+        public static IHtmlContent ActionLinkAuthorizedLinkWithCssClass(this IHtmlHelper htmlHelper, string linkText, string asppage, string cssclass)
+        {
+            var userId = SkillTreeRazorPageBlogSample.Extensions.HttpContext.Current.User.Identity.Name;
+
+            if (string.IsNullOrWhiteSpace(userId) == false)
+            {
+                var link = new TagBuilder("a");
+                link.MergeAttribute("href", asppage);
+                link.InnerHtml.AppendHtml(linkText);
+                link.AddCssClass(cssclass);
+                return link;
+
+            }
+
+            return HtmlString.Empty;
+        }
+
+        /// <summary>
+        /// 不區分Role，有登入就可以看到Edit超連結
+        /// </summary>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <param name="linkText">連結文字</param>
+        /// <param name="articleId">文章Id</param>
+        /// <returns>MvcHtmlString.</returns>
+        public static IHtmlContent ActionLinkAuthorizedEdit(this IHtmlHelper htmlHelper, string linkText, string articleId)
+        {
+            var userId = SkillTreeRazorPageBlogSample.Extensions.HttpContext.Current.User.Identity.Name;
+
+            if (string.IsNullOrWhiteSpace(userId) == false)
+            {
+                var link = new TagBuilder("a");
+                link.MergeAttribute("href", "Edit?id="+ articleId);
+                link.InnerHtml.AppendHtml(linkText);
+                return link;
+                
+            }
+
+            return HtmlString.Empty;
+        }
+
+        /// <summary>
+        /// 不區分Role，有登入就可以看到Delete超連結
+        /// </summary>
+        /// <param name="htmlHelper">The HTML helper.</param>
+        /// <param name="linkText">連結文字</param>
+        /// <param name="articleId">文章Id</param>
+        /// <returns>MvcHtmlString.</returns>
+        public static IHtmlContent ActionLinkAuthorizedDelete(this IHtmlHelper htmlHelper, string linkText, string articleId)
+        {
+            var userId = SkillTreeRazorPageBlogSample.Extensions.HttpContext.Current.User.Identity.Name;
+
+            if (string.IsNullOrWhiteSpace(userId) == false)
+            {
+                var link = new TagBuilder("a");
+                link.MergeAttribute("href", "Delete?id=" + articleId);
+                link.InnerHtml.AppendHtml(linkText);
+                return link;
+
+            }
+
+            return HtmlString.Empty;
+        }
 
         /// <summary>
         /// Actions the link authorized.
