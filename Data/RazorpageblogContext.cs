@@ -3,11 +3,14 @@ using SkillTreeRazorPageBlogSample.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Http;
 
 namespace SkillTreeRazorPageBlogSample.Data
 {
     public partial class RazorpageblogContext : DbContext
     {
+        //https://www.koskila.net/how-to-get-current-user-in-asp-net-core/
+        //private readonly IHttpContextAccessor _httpContextAccessor;
         public RazorpageblogContext()
         {
         }
@@ -16,6 +19,14 @@ namespace SkillTreeRazorPageBlogSample.Data
             : base(options)
         {
         }
+
+        //https://www.koskila.net/how-to-get-current-user-in-asp-net-core/
+        //This can be injected to Controllers and Views, Custom Components and if need be,
+        //public RazorpageblogContext(DbContextOptions<RazorpageblogContext> options, IHttpContextAccessor httpContextAccessor)
+        //    : base(options)
+        //{
+        //    _httpContextAccessor = httpContextAccessor;
+        //}
 
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<TagCloud> TagClouds { get; set; }
