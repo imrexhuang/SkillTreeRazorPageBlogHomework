@@ -51,6 +51,9 @@ namespace SkillTreeRazorPageBlogSample
             //    .AddDefaultTokenProviders();
 
             //https://docs.microsoft.com/zh-tw/aspnet/core/security/authorization/secure-data?view=aspnetcore-3.1
+            //https://docs.microsoft.com/zh-tw/aspnet/core/security/authentication/identity?view=aspnetcore-3.1&tabs=visual-studio#adddefaultidentity-and-addidentity
+            //AddDefaultIdentity已在 ASP.NET Core 2.1 中引進。 呼叫AddDefaultIdentity類似于呼叫下列內容：AddIdentity、AddDefaultUI、AddDefaultTokenProviders
+            //https://github.com/aspnet/Identity/blob/c7276ce2f76312ddd7fccad6e399da96b9f6fae1/src/UI/IdentityServiceCollectionUIExtensions.cs#L49
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RazorpageblogIdentityDbContext>();
@@ -61,8 +64,12 @@ namespace SkillTreeRazorPageBlogSample
             //https://www.cnblogs.com/linezero/p/6801602.html
             //https://docs.microsoft.com/zh-tw/aspnet/core/migration/claimsprincipal-current?view=aspnetcore-3.1
             //https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/http-context?view=aspnetcore-3.1
+            //https://www.koskila.net/how-to-get-current-user-in-asp-net-core/
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            //https://www.koskila.net/how-to-get-current-user-in-asp-net-core/
+            //Or if you’re at least on .NET Core 3.0, you can do this as well:
+            //services.AddHttpContextAccessor();
 
             //https://www.codemag.com/Article/1811071/Marking-up-the-Web-with-ASP.NET-Core-and-Markdown
             services.AddMarkdown(config =>
